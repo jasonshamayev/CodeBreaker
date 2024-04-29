@@ -1,0 +1,49 @@
+
+
+Eventually there will be a goal to have user select how long they want their code to be (3-6 numbers)
+
+Needs to track:
+    --Solution 
+        --a 5 number string
+    --past guesses
+        -- an array of past guesses
+        --each past guess is an array of number objects [{}, {}, {}, {}, {}]
+        --each object represents a letter in the guess word {key: '3', color: 'green'}
+    --current guess
+        --string '24012'
+    --keypad numbers
+    --number of turns
+        -- an integer 0-6 (or however many turns is decided)
+
+Game Process:
+    --entering numbers
+        --user enters a number (5 digits lets say) and each tile is filled with a digit
+        --when a user hits delete it deletes the previous digit
+        --when a user hits enter it submits the number 
+            --if all tiles are not filled then the number is not sumbitted
+            --if that guess has already been made it will not be submitted (guesses array will be needed)
+        --checking submitted words:
+            --each number is checked to see if it matches to the Solution
+            --each number is assigned a color based on it's inclusion in the Solution
+                --exact matches are green (correct position)
+                --partial matches are yellow (in solution but wrong position)
+                --if the digit is not in the puzzle it will be grey
+            --the guess is added to the grid with the correct colors
+            --current guess moves to the next row (x amount of rows, dependent on how many guesses is decided)
+            --numpad numbers are updated (colors) so 0-9 digits will be shown bottom of screen  
+        --ending the Game:
+            --when the guess matches solution
+                -- animation of a lock unlocking 
+                -- confirm the user got it and show them how many guesses it took and the color of their tiles
+            --run out of guesses
+                --show their guess history with color of tiles and say 'Better Luck next time!'
+
+--Things to handle
+    --'75432' is the solution and you guess '75543' 5 would show green for the first 5 and yellow for 2nd 5 where it should show GREY for the 2nd 5
+    --popup to explain how to play the game everytime you start
+    --victory screen
+    --loss screen
+    center middle of screen
+
+
+        
