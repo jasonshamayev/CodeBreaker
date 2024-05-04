@@ -60,7 +60,7 @@ function App() {
             key={i}
             className="bigTile"
             onClick={() => {
-              if (bottom[i] == "\u232B") {
+              if (bottom[i] === "\u232B") {
                 console.log("back");
                 setCurrentGuess(currentGuess.slice(0, -1));
               } else {
@@ -148,7 +148,7 @@ function App() {
   }, [currentGuess, isGameOver, solution, guesses]);
 
   return (
-    <div>
+    <div className="App">
       <statusbar className="bar">
         <div className="title">Code Breakers</div>
         <div className="icons">
