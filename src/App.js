@@ -2,7 +2,12 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import "./components/board";
 import "./images/help.png";
-//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faQuestionCircle,
+  faRankingStar,
+  faGear,
+} from "@fortawesome/free-solid-svg-icons";
 
 //const element = <FontAwesomeIcon icon={'fa-regular fa-circle-question'} />
 
@@ -40,7 +45,11 @@ function App() {
         <button
           key={i}
           className="tile"
-          onClick={() => setCurrentGuess(currentGuess + top[i])}
+          onClick={() => {
+            if (currentGuess.length < 5) {
+              setCurrentGuess(currentGuess + top[i]);
+            }
+          }}
         >
           {top[i]}
         </button>
@@ -79,7 +88,11 @@ function App() {
           <button
             key={i}
             className="tile"
-            onClick={() => setCurrentGuess(currentGuess + bottom[i])}
+            onClick={() => {
+              if (currentGuess.length < 5) {
+                setCurrentGuess(currentGuess + bottom[i]);
+              }
+            }}
           >
             {bottom[i]}
           </button>
@@ -136,16 +149,28 @@ function App() {
 
   return (
     <div>
-      <statusbar>
-        <button className="btn"></button>
-        <button>
-          <i></i>
-        </button>
-        <button>
-          <i></i>
-        </button>
+      <statusbar className="bar">
+        <div className="title">Code Breakers</div>
+        <div className="icons">
+          <FontAwesomeIcon
+            className="btn"
+            icon={faGear}
+            onClick={() => console.log("help")}
+          ></FontAwesomeIcon>
+
+          <FontAwesomeIcon
+            className="btn"
+            icon={faQuestionCircle}
+            onClick={() => console.log("settings")}
+          ></FontAwesomeIcon>
+          <FontAwesomeIcon
+            className="btn"
+            icon={faRankingStar}
+            onClick={() => console.log("leaderboard")}
+          ></FontAwesomeIcon>
+        </div>
       </statusbar>
-      <div className="title">Code Breakers</div>
+
       <div className="board">
         {guesses.map((guess, i) => {
           const isCurrentGuess = i === guesses.findIndex((val) => val == null);
