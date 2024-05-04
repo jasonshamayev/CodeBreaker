@@ -1,3 +1,7 @@
+# Code Breaker
+
+Wordle-like game where you have have 5 tries to guess a 5 digit code
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

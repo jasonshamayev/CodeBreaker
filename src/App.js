@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import './components/board'
-
+import './images/help.png'
+import settings from './settings.png'
 
 const CODE_LENGTH = 5;
 function App() {
@@ -9,11 +10,21 @@ function App() {
   const [guesses, setGuesses] = useState(Array(5).fill(null))
   const [currentGuess, setCurrentGuess] = useState('');
   const [isGameOver, setIsGameOver] = useState(false);
-  const code = '75434'
+  //const code = '75434'
+
+  function getRandomSolution(CODE_LENGTH) {
+    let solution = '';
+    for(let i = 0; i <= CODE_LENGTH - 1; i++) {
+      solution += Math.floor(Math.random() * 10).toString();
+    }
+    return solution;
+  }
   useEffect(() => {
-    setSolution(code);
-    }, [code]
+    let answer = getRandomSolution(CODE_LENGTH);
+    setSolution(answer);
+    }, []
   );
+
 
   useEffect(() => {
     const handleType = (event) => {
@@ -60,21 +71,37 @@ function App() {
 
 
   return (
-    <div className="board">
-      <p>{solution}</p>
-      {
-      guesses.map((guess, i) => {
-        const isCurrentGuess = i === guesses.findIndex(val => val == null);
-        return (
-          <Line 
-            guess={isCurrentGuess ? currentGuess : guess ?? ''}
-            isFinal={!isCurrentGuess && guess != null}
-            solution={solution}/>
-        )
-      })
-      }
-      {currentGuess}
+    <div className='App-header'>
+      <statusbar>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
+        <button className='btn'><image class={settings}></image></button>
+        <button>LeaderBoard</button>
+        <button>Help</button>
+      </statusbar>
+      <div className='title'>Code Breakers</div>
+      <div className="board">
+        {
+        guesses.map((guess, i) => {
+          const isCurrentGuess = i === guesses.findIndex(val => val == null);
+          return (
+            <Line 
+              guess={isCurrentGuess ? currentGuess : guess ?? ''}
+              isFinal={!isCurrentGuess && guess != null}
+              solution={solution}/>
+          )
+        })
+        }
+        <div>
+          {
+            <NumPad>
+              
+            </NumPad>
+          }
+        </div>
+      </div>
     </div>
+
+    
   );
 }
 
@@ -101,6 +128,36 @@ function Line({guess, isFinal, solution}) {
   return (
       <div className="line">{tiles}</div>
   )
+}
+
+function NumPad() {
+  // will need guess and isFinal eventually
+  // 0 1 2 3 4 5 
+  // e 6 7 8 9 b 
+  
+  const top = ['0','1','2','3','4', '5'];
+  const bottom = ['\u23CE', '6', '7', '8', '9', '\u232B'];
+  const topTiles = [];
+  const botTiles = [];
+  for(let i = 0; i <= top.length - 1; i++){
+    topTiles.push(<button key ={i} className="tile">{top[i]}</button>)
+    if(i === 0 || i === 5){
+      botTiles.push(<button key={i} className="bigTile" onClick={bottom[i]}>{bottom[i]}</button>)
+    }
+    else{
+      
+    botTiles.push(<button key ={i} className="tile">{bottom[i]}</button>)
+    }
+  }
+  return(
+    
+    <div className="numPad">
+      <div className="line">{topTiles}</div>
+      <div className="line">{botTiles}</div>
+    </div>
+  )
+  
+
 }
 
 export default App;
